@@ -27,6 +27,7 @@
 - [Supported Formats](#supported-formats)
 - [Caching](#caching)
 - [Page Ranges](#page-ranges)
+- [Claude Skill](#claude-skill)
 - [Development](#development)
 - [License](#license)
 
@@ -308,6 +309,44 @@ The `--pages` option accepts 1-indexed page numbers in several formats:
 | Range | `1-5` | 1, 2, 3, 4, 5 |
 | List | `1,3,5` | 1, 3, 5 |
 | Mixed | `1-3,7,10-12` | 1, 2, 3, 7, 10, 11, 12 |
+
+---
+
+## Claude Skill
+
+A ready-made [Claude](https://claude.ai/) skill is included in
+[`examples/claude-ocr-skill/SKILL.md`](examples/claude-ocr-skill/SKILL.md).
+When installed, Claude will automatically invoke `mistralocr` whenever you share
+a document path and ask it to read, extract, or summarise the file.
+
+### Install
+
+```bash
+mkdir -p ~/.claude/skills/read-document
+cp examples/claude-ocr-skill/SKILL.md ~/.claude/skills/read-document/SKILL.md
+```
+
+Or, if you haven't cloned the repo, download the skill file directly:
+
+```bash
+mkdir -p ~/.claude/skills/read-document
+curl -fsSL https://raw.githubusercontent.com/pisanvs/mistralocr-cli/main/examples/claude-ocr-skill/SKILL.md \
+  -o ~/.claude/skills/read-document/SKILL.md
+```
+
+### What it does
+
+Once installed, Claude will:
+
+1. Recognise when you provide a local file path and want its contents read.
+2. Run `mistralocr <file> [options]` via its Bash tool.
+3. Return the extracted Markdown for further summarisation, translation, or analysis.
+
+### Prerequisites
+
+- `mistralocr` must be installed globally (`npm install -g @pisanvs/mistralocr-cli`).
+- The `MISTRAL_API_KEY` environment variable must be set in the environment where
+  Claude runs its Bash tool.
 
 ---
 
